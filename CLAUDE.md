@@ -79,3 +79,10 @@ pnpm db:generate && pnpm db:migrate
   (호스트를 늘리면 라쏘런 소스 `dp update-source-hosts` 도 같이 — 안 맞으면 버튼은 뜨는데 보내면 403).
 - 환경변수 `NEXT_PUBLIC_DP_FEEDBACK_URL` / `NEXT_PUBLIC_DP_FEEDBACK_KEY` — 빌드 때 인라인되므로 Vercel production·preview 에 둘 다 넣는다.
   비면 위젯이 조용히 사라진다(배포 뒤 번들에서 수집 URL 문자열을 센다).
+
+## 배포
+
+- GitHub `woorichicken/agent-swap-web`(public) → Vercel 개인 계정 `gyeonghunjeong-7007s-projects/agent-swap-web`, production branch `main`.
+  main 에 push 하면 자동 배포된다. 수동 `vercel --prod` 는 쓰지 않는다(배포 이력이 Git 과 갈린다).
+- env: `NEXT_PUBLIC_DP_FEEDBACK_URL`·`_KEY`(production·preview, `--no-sensitive` — `NEXT_PUBLIC_*` 는 sensitive 로 못 넣는다),
+  `DATABASE_URL`·`ADMIN_API_KEY`(Neon 연결 뒤 추가).
