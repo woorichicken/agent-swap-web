@@ -28,7 +28,6 @@ const instrumentSerif = Instrument_Serif({
  */
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  icons: { icon: site.logo, apple: site.logo },
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s | ${site.name}`,
