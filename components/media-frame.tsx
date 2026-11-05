@@ -2,7 +2,7 @@
 
 import { ScrollVideo } from "./scroll-video"
 
-type Media = { type: "image" | "video"; src: string; alt: string }
+type Media = { type: "image" | "video"; src: string; alt: string; poster?: string }
 
 /**
  * 설정의 media 를 받아 이미지든 영상이든 같은 틀로 그린다.
@@ -12,7 +12,7 @@ type Media = { type: "image" | "video"; src: string; alt: string }
  */
 export function MediaFrame({ media, className = "" }: { media: Media; className?: string }) {
   if (media.type === "video") {
-    return <ScrollVideo src={media.src} alt={media.alt} className={className} />
+    return <ScrollVideo src={media.src} alt={media.alt} poster={media.poster} className={className} />
   }
   return <img src={media.src} alt={media.alt} className={className} loading="lazy" />
 }

@@ -96,9 +96,11 @@ export const hero = {
   secondaryCta: { label: "GitHub", href: repoUrl },
   /** 히어로 스크롤 애니메이션 안에 들어갈 데모. mp4 또는 이미지. */
   media: {
-    type: "image" as "image" | "video",
-    src: "/feature-list.png",
-    alt: "aswap list: Claude accounts plus Codex and Muse usage",
+    type: "video" as "image" | "video",
+    src: "/demo.mp4",
+    /** 영상이 뜨기 전·자동재생이 막혔을 때 보이는 정지 화면. */
+    poster: "/demo-poster.png",
+    alt: "aswap list shows usage for every Claude account plus Codex and Muse, then cswap auto checks the switch threshold",
   },
 } as const;
 

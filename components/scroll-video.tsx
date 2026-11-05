@@ -6,6 +6,7 @@ interface ScrollVideoProps {
   src: string
   alt: string
   className?: string
+  poster?: string
   // 영상이 화면에 얼마나 보여야 재생할지 (0~1, 기본 0.5 = 50%)
   threshold?: number
 }
@@ -16,7 +17,7 @@ interface ScrollVideoProps {
  * - 화면에서 벗어나면 일시 정지
  * - 음소거 상태로 재생 (자동재생 정책 때문)
  */
-export function ScrollVideo({ src, alt, className = "", threshold = 0.5 }: ScrollVideoProps) {
+export function ScrollVideo({ src, alt, poster, className = "", threshold = 0.5 }: ScrollVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -55,6 +56,7 @@ export function ScrollVideo({ src, alt, className = "", threshold = 0.5 }: Scrol
     <video
       ref={videoRef}
       src={src}
+      poster={poster}
       className={className}
       muted // 음소거 (자동재생을 위해 필수)
       loop // 반복 재생

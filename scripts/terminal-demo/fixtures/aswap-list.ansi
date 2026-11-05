@@ -1,0 +1,12 @@
+[1mAccounts:[0m
+  1: [38;5;173mwork[0m (work@example.com) [38;5;250m[work@example.com's Organization][0m [38;5;250m·[0m [38;5;250mMax 20x[0m
+     [2m├[0m [38;5;250m7d:    100%   resets Nov 7 11:00   in 1d 10h  (ahead of pace)[0m
+     [2m└[0m [38;5;250mFable:   0%   resets Nov 7 11:00   in 1d 10h · 4m ago[0m
+
+  2: [38;5;173mpersonal[0m (personal@example.com) [38;5;250m[personal@example.com's Organization][0m [1m[38;5;173m(active)[0m [38;5;250m·[0m [38;5;250mMax 20x[0m
+     [2m├[0m [38;5;250m7d:     41%   resets Nov 11 12:59  in 5d 12h  (ahead of pace)[0m
+     [2m└[0m [38;5;250mFable:   0%   resets Nov 11 13:00  in 5d 12h · 15m ago[0m
+
+[1mOther agents:[0m
+  Codex · 5h 23% · weekly 51% · Credits 60,218
+  Muse · no plan allowance (no_allowance)

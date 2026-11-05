@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>agent-swap terminal demo</title>
+<style>
+  :root { --bg:#1b1b1d; --bar:#2a2a2d; --fg:#ececec; --font:27px; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; width:100%; height:100%; background:#0e0e10; overflow:hidden; }
+  .win { position:absolute; inset:0; background:var(--bg); display:flex; flex-direction:column; }
+  .bar { height:64px; background:var(--bar); display:flex; align-items:center; padding:0 26px; gap:12px; flex:none; border-bottom:1px solid #000; }
+  .dot { width:18px; height:18px; border-radius:50%; }
+  .title { position:absolute; left:0; right:0; text-align:center; color:#9a9a9f; font:600 22px -apple-system,"SF Pro Text",Helvetica,sans-serif; pointer-events:none; }
+  #screen { flex:1; padding:34px 40px; color:var(--fg); font:var(--font)/1.62 "SF Mono",Menlo,Monaco,monospace; white-space:pre; overflow:hidden; }
+  .prompt { color:#7d7d83; }
+  .cmd { font-weight:700; color:#fff; }
+  .dim { opacity:.62; }
+  .b { font-weight:700; }
+  .cur { display:inline-block; width:.6em; height:1.15em; background:#e8e8e8; vertical-align:-0.2em; margin-left:2px; }
+  .blink { animation:bl 1s steps(1) infinite; }
+  @keyframes bl { 50% { opacity:0; } }
+</style>
+</head>
+<body>
+<div class="win">
+  <div class="bar"><i class="dot" style="background:#ff5f57"></i><i class="dot" style="background:#febc2e"></i><i class="dot" style="background:#28c840"></i><div class="title" id="title">agent-swap</div></div>
+  <div id="screen"></div>
+</div>
+<script>
+// xterm 256색 → hex (이 출력에 쓰이는 38;5;N 만 해석하면 되지만 일반 표를 만든다)
+function xterm(n){
+  const base=["#000000","#cd3131","#0dbc79","#e5e510","#2472c8","#bc3fbc","#11a8cd","#e5e5e5","#666666","#f14c4c","#23d18b","#f5f543","#3b8eea","#d670d6","#29b8db","#ffffff"];
+  if(n<16) return base[n];
+  if(n>=232){const v=8+(n-232)*10;return `rgb(${v},${v},${v})`;}
+  n-=16; const c=[0,95,135,175,215,255];
+  return `rgb(${c[Math.floor(n/36)]},${c[Math.floor(n/6)%6]},${c[n%6]})`;
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+/** ANSI 한 줄 → HTML. SGR 0·1·2·22·38;5;N·39 만 해석한다. */
+function ansiLine(line){
+  let html="", st={b:false,dim:false,fg:null}, i=0, buf="";
+  const flush=()=>{ if(!buf) return; const cls=[st.b?"b":"",st.dim?"dim":""].filter(Boolean).join(" ");
+    html+=`<span${cls?` class="${cls}"`:""}${st.fg?` style="color:${st.fg}"`:""}>${esc(buf)}</span>`; buf=""; };
+  const re=/\x1b\[([0-9;]*)m/g; let last=0, m;
+  while((m=re.exec(line))){
+    buf+=line.slice(last,m.index); flush(); last=re.lastIndex;
+    const p=m[1]===""?[0]:m[1].split(";").map(Number);
+    for(let k=0;k<p.length;k++){
+      if(p[k]===0) st={b:false,dim:false,fg:null};
+      else if(p[k]===1) st.b=true; else if(p[k]===2) st.dim=true; else if(p[k]===22){st.b=false;st.dim=false;}
+      else if(p[k]===39) st.fg=null;
+      else if(p[k]===38&&p[k+1]===5){st.fg=xterm(p[k+2]);k+=2;}
+    }
+  }
+  buf+=line.slice(last); flush(); return html;
+}
+const screen=document.getElementById("screen");
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const cursor='<span class="cur blink"></span>';
+let lines=[]; // 완성된 HTML 줄들
+let live="";  // 입력 중인 줄
+function paint(withCursor=true){ screen.innerHTML=lines.concat([live+(withCursor?cursor:"")]).join("\n"); }
+async function typeCmd(cmd,cps=14){
+  const [head,...rest]=cmd.split(" "); let typed="";
+  for(const ch of cmd){ typed+=ch;
+    const h=typed.slice(0,head.length), r=typed.slice(head.length);
+    live=`<span class="prompt">$ </span><span class="cmd">${esc(h)}</span><span class="cmd" style="font-weight:400;color:#cfcfd4">${esc(r)}</span>`;
+    paint(); await sleep(1000/cps*(0.7+Math.random()*0.6)); }
+}
+async function enter(){ lines.push(live); live=""; paint(false); }
+async function stream(text,perLine=110){
+  for(const l of text.replace(/\n$/,"").split("\n")){ lines.push(ansiLine(l)); paint(false); await sleep(perLine); }
+}
+window.runDemo=async function(fx,markers){
+  screen.innerHTML=""; lines=[]; live=""; paint();
+  await sleep(900);
+  await typeCmd("aswap list"); await sleep(380); await enter(); await sleep(250);
+  await stream(fx.list,95); lines.push(""); live=`<span class="prompt">$ </span>`; paint();
+  markers.listDone&&markers.listDone();
+  await sleep(4300);
+  // 화면 비우기(clear) → 다음 명령
+  lines=[]; live=`<span class="prompt">$ </span>`; paint(); await sleep(500);
+  await typeCmd("cswap auto --dry-run --once --threshold 80",18); await sleep(380); await enter(); await sleep(450);
+  await stream(fx.auto,420); lines.push(""); live=`<span class="prompt">$ </span>`; paint();
+  await sleep(3600);
+  window.__done=true;
+};
+</script>
+</body>
+</html>
