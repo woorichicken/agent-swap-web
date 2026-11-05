@@ -16,7 +16,8 @@ export async function RepoBadges() {
   const items: { label: string; value: string; icon: React.ReactNode }[] = []
 
   if (stats) {
-    items.push({
+    // 0 은 "죽은 프로젝트"로 읽힌다 — 값이 없을 때와 같이 숨긴다.
+    if (stats.stars > 0) items.push({
       label: "stars",
       value: compact(stats.stars),
       icon: (
@@ -36,7 +37,7 @@ export async function RepoBadges() {
         ),
       })
     }
-    items.push({
+    if (stats.openIssues > 0) items.push({
       label: "open issues",
       value: compact(stats.openIssues),
       icon: (

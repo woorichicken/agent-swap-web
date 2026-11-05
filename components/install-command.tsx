@@ -89,7 +89,10 @@ export function InstallCommand({ id = "install" }: { id?: string }) {
       )}
 
       {install.verify && (
-        <p className="text-center text-xs text-[rgba(55,50,47,0.5)] font-mono">{install.verify}</p>
+        <p className="text-center text-xs text-[rgba(55,50,47,0.6)] font-sans">
+          {install.verifyLabel && <span className="mr-1.5">{install.verifyLabel}</span>}
+          <code className="font-mono text-[#37322F] bg-[rgba(55,50,47,0.06)] px-1.5 py-0.5 rounded">{install.verify}</code>
+        </p>
       )}
     </div>
   )

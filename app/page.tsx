@@ -133,7 +133,7 @@ export default function LandingPage() {
           <ContainerScroll titleComponent={<></>}>
             <MediaFrame
               media={hero.media}
-              className="mx-auto rounded-2xl object-cover h-auto w-full md:h-full object-left-top"
+              className="mx-auto rounded-xl h-auto w-full"
             />
           </ContainerScroll>
         </div>
@@ -191,11 +191,11 @@ export default function LandingPage() {
                   </div>
                   <div className="w-full md:w-[60%] relative">
                     <div
-                      className={`w-full aspect-[16/10] md:aspect-[16/9] bg-[#F5F5F4] rounded-2xl overflow-hidden shadow-xl border border-[rgba(55,50,47,0.08)] flex items-center justify-center transition-transform duration-700 hover:scale-[1.02] ${
+                      className={`w-full bg-[#EDE8E3] rounded-2xl overflow-hidden shadow-xl border border-[rgba(55,50,47,0.08)] p-3 sm:p-5 flex items-center justify-center transition-transform duration-700 hover:scale-[1.02] ${
                         reversed ? "md:-translate-x-8" : "md:translate-x-12"
                       }`}
                     >
-                      <MediaFrame media={feature.media} className="w-full h-full object-cover" />
+                      <MediaFrame media={feature.media} className="w-full h-auto rounded-lg shadow-md" />
                     </div>
                   </div>
                 </div>
