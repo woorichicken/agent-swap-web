@@ -32,7 +32,7 @@ export const site = {
   description:
     "MIT fork of claude-swap: switch Claude Code accounts without logging out, auto-switch before rate limits, and see Codex and Muse usage in one menu bar.",
   /** 배포 도메인. metadataBase·sitemap·canonical 의 기준. */
-  url: "https://agent-swap-web.vercel.app",
+  url: "https://agent-swap.solhun.com",
   lang: "en",
   locale: "en_US",
   logo: "/logo.svg",
@@ -53,6 +53,8 @@ export const install: {
   options: InstallOption[];
   /** 설치 뒤 확인용 한 줄(선택). 없으면 렌더 안 함. */
   verify?: string;
+  /** verify 앞에 붙는 안내(선택). 명령만 덩그러니 있으면 무엇인지 안 읽힌다. */
+  verifyLabel?: string;
 } = {
   options: [
     { label: "uv", command: "uv tool install git+https://github.com/woorichicken/agent-swap" },
@@ -60,6 +62,7 @@ export const install: {
     { label: "menu bar (macOS)", command: "uv tool install 'agent-swap[menubar] @ git+https://github.com/woorichicken/agent-swap'" },
   ],
   verify: "aswap list",
+  verifyLabel: "Then check every account:",
 };
 
 /** 30초 안에 뭔가 돌아가는 최소 예제. 히어로 다음에 온다. */

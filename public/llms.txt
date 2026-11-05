@@ -7,7 +7,7 @@ agent-swap keeps several Claude Code accounts and switches between them without 
 ## Docs
 
 - [README](https://github.com/woorichicken/agent-swap#readme): installation, usage, automatic switching, menu bar, JSON output
-- [Changelog](https://agent-swap-web.vercel.app/changelog)
+- [Changelog](https://agent-swap.solhun.com/changelog)
 - [Upstream claude-swap](https://github.com/realiti4/claude-swap)
 
 ## Install

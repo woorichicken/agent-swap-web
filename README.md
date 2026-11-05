@@ -1,6 +1,6 @@
 # agent-swap-web
 
-Homepage for [agent-swap](https://github.com/woorichicken/agent-swap) — https://agent-swap-web.vercel.app
+Homepage for [agent-swap](https://github.com/woorichicken/agent-swap) — https://agent-swap.solhun.com
 
 Built from an open-source landing template: every word, link, and image lives in `site.config.ts`.
 Stars, contributors, and release versions are read from the GitHub API at build time.
