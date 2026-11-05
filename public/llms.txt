@@ -1,0 +1,16 @@
+# agent-swap
+
+> Switch Claude Code accounts without logging out, auto-switch before rate limits, and see Codex and Muse usage in one dashboard and macOS menu bar. MIT fork of claude-swap.
+
+agent-swap keeps several Claude Code accounts and switches between them without logging out (`cswap switch`), or switches automatically before a 5-hour or 7-day window runs out (`cswap auto`). `aswap list` shows every account's usage plus the signed-in Codex account and Muse's allowance. Codex and Muse usage is read-only; their accounts are never switched.
+
+## Docs
+
+- [README](https://github.com/woorichicken/agent-swap#readme): installation, usage, automatic switching, menu bar, JSON output
+- [Changelog](https://agent-swap-web.vercel.app/changelog)
+- [Upstream claude-swap](https://github.com/realiti4/claude-swap)
+
+## Install
+
+- `uv tool install git+https://github.com/woorichicken/agent-swap`
+- macOS menu bar: `uv tool install 'agent-swap[menubar] @ git+https://github.com/woorichicken/agent-swap'`
