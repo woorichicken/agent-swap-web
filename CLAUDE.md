@@ -85,4 +85,4 @@ pnpm db:generate && pnpm db:migrate
 - GitHub `woorichicken/agent-swap-web`(public) → Vercel 개인 계정 `gyeonghunjeong-7007s-projects/agent-swap-web`, production branch `main`.
   main 에 push 하면 자동 배포된다. 수동 `vercel --prod` 는 쓰지 않는다(배포 이력이 Git 과 갈린다).
 - env: `NEXT_PUBLIC_DP_FEEDBACK_URL`·`_KEY`(production·preview, `--no-sensitive` — `NEXT_PUBLIC_*` 는 sensitive 로 못 넣는다),
-  `DATABASE_URL`·`ADMIN_API_KEY`(Neon 연결 뒤 추가).
+  `DATABASE_URL`·`ADMIN_API_KEY`(sensitive, production·preview). DB 는 Neon `agent-swap-web`(`rough-pine-91836154`, aws-us-east-1), 원본 값은 1Password Employee 볼트.
