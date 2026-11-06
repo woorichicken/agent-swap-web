@@ -34,10 +34,6 @@ UI 라벨(Copy·Copied·GitHub)이 아니라 **제품 문구**면 config 로 빼
 원본(solhun-web-page)에 있던 후기 3개와 `aggregateRating 4.9/150` JSON-LD 는
 지어낸 값이라 통째로 뺐다. 다시 넣지 않는다.
 
-### 3rd-party 로고를 public/ 에 두지 않는다
-
-상표다. 템플릿째 배포되면 문제가 된다. 원본의 로고 18개를 지운 이유다.
-
 ### 쓰기 API 는 키가 없으면 전부 막힌다
 
 `lib/admin-auth.ts` 의 `isAdmin` 은 `ADMIN_API_KEY` 가 없으면 **무조건 false** 다.
