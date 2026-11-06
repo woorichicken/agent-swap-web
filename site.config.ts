@@ -133,6 +133,12 @@ export const features: Feature[] = [
     link: { label: "Automatic switching →", href: `${repoUrl}#automatic-switching` },
     media: { type: "image", src: "/feature-auto.png", alt: "cswap auto dry run" },
   },
+  {
+    title: "Your limits, always in the menu bar",
+    body: "On macOS, the active account's usage sits in the menu bar. Open it to see every Claude account plus Codex and Muse, switch with a click, or turn on auto-switching in Settings. It is an optional extra, and starts at login if you want it to.",
+    link: { label: "Set up the menu bar →", href: `${repoUrl}#menu-bar-macos` },
+    media: { type: "image", src: "/feature-menubar.png", alt: "agent-swap macOS menu bar showing usage for two Claude accounts, Codex, and Muse" },
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────
