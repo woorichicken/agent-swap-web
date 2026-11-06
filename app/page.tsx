@@ -195,7 +195,7 @@ export default function LandingPage() {
                         reversed ? "md:-translate-x-8" : "md:translate-x-12"
                       }`}
                     >
-                      <MediaFrame media={feature.media} className="w-full h-auto rounded-lg shadow-md" />
+                      <MediaFrame media={feature.media} className="w-full h-auto rounded-lg shadow-md" zoomable />
                     </div>
                   </div>
                 </div>

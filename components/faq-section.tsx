@@ -27,7 +27,17 @@ function ChevronDownIcon({ className }: { className?: string }) {
 }
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  // 항목마다 따로 연다. 하나만 열리게 하면 위 항목이 닫히는 만큼 방금 누른 질문이
+  // 커서 밑에서 밀려 올라가, 화면이 통째로 바뀐 것처럼 보인다.
+  const [openItems, setOpenItems] = useState<ReadonlySet<number>>(() => new Set([0]))
+
+  function toggle(index: number) {
+    setOpenItems((current) => {
+      const next = new Set(current)
+      if (!next.delete(index)) next.add(index)
+      return next
+    })
+  }
 
   return (
     <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center">
@@ -38,11 +48,11 @@ export default function FAQSection() {
 
         <div className="w-full max-w-[720px] flex flex-col">
           {faq.map((item, i) => {
-            const open = openIndex === i
+            const open = openItems.has(i)
             return (
               <div key={item.question} className="border-b border-[rgba(55,50,47,0.12)]">
                 <button
-                  onClick={() => setOpenIndex(open ? null : i)}
+                  onClick={() => toggle(i)}
                   aria-expanded={open}
                   className="w-full py-5 flex justify-between items-center gap-4 text-left group"
                 >
@@ -53,11 +63,18 @@ export default function FAQSection() {
                     className={`shrink-0 text-[rgba(55,50,47,0.5)] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
                   />
                 </button>
-                {open && (
-                  <p className="pb-5 pr-8 text-[#605A57] text-sm sm:text-base leading-7 font-sans">
-                    {item.answer}
-                  </p>
-                )}
+                {/* 0fr↔1fr 는 답변 높이를 몰라도 움직인다. invisible 은 닫힌 답변을 보조기기에서 뺀다. */}
+                <div
+                  className={`grid transition-[grid-template-rows,visibility] duration-200 ease-out motion-reduce:transition-none ${
+                    open ? "grid-rows-[1fr] visible" : "grid-rows-[0fr] invisible"
+                  }`}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <p className="pb-5 pr-8 text-[#605A57] text-sm sm:text-base leading-7 font-sans">
+                      {item.answer}
+                    </p>
+                  </div>
+                </div>
               </div>
             )
           })}

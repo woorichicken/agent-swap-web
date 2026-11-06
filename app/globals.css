@@ -126,3 +126,8 @@
 .backdrop-blur-custom {
   backdrop-filter: blur(8.25px);
 }
+
+/* 확대 이미지가 열린 동안 뒤 페이지가 같이 스크롤되지 않게 한다. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
